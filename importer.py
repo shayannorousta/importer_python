@@ -4,7 +4,7 @@ engine = create_engine('postgresql://arnikausername:arnikapassword@localhost:543
 
 df_company=pd.read_csv('company.csv')
 df_company=df_company[df_company['source']=='rahsar']
-df_company['national_id']=df_company['national_id'] + 'i'
+df_company['national_id'] = df_company['national_id'].astype(str) + 'i'
 df_company.to_csv('company_cl.csv',index=False)
 df_company=pd.read_csv('company_cl.csv')
 df_company=df_company[['name','national_id','source','is_active','group_id','industry_id','is_confirmed']]
