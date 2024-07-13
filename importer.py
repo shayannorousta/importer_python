@@ -4,11 +4,14 @@ engine = create_engine('postgresql://arnikausername:arnikapassword@localhost:543
 
 df_company=pd.read_csv('company.csv')
 df_company=df_company[df_company['source']=='rahsar']
+df_company['national_id']=df_company['national_id'] + 'i'
 df_company.to_csv('company_cl.csv',index=False)
 df_company=pd.read_csv('company_cl.csv')
-# df_company.to_sql('company_info', engine, index=False, if_exists='replace')
-df_company_info=pd.read_sql('select * from company_info',engine)
-print(df_company.columns)
+df_company=df_company[['name','national_id','source','is_active','group_id','industry_id','is_confirmed']]
+breakpoint()
+df_company.to_sql('company_info', engine, index=False, if_exists='append')
+# df_company_info=pd.read_sql('select * from company_info',engine)
+# print(df_company.columns)
 breakpoint()
 df_company_list=df_company['id'].unique()
 df_financial_statement=pd.read_csv('financial_statement.csv')
